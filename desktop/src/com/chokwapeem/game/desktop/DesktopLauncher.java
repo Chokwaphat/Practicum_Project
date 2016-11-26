@@ -6,7 +6,14 @@ import com.chokwapeem.game.SpaceShooter;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new SpaceShooter(), config);
+		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+		new LwjglApplication(new SpaceShooter(), cfg);
+		cfg.title = "SpaceShooter";
+		cfg.width = 600;
+		cfg.height = 500;
+		cfg.useGL30 = false;
+		cfg.resizable = false;
+		
+		new LwjglApplication(new SpaceShooter(), cfg);
 	}
 }
