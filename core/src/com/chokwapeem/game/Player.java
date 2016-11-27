@@ -1,10 +1,16 @@
 package com.chokwapeem.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends SpaceObject{
+	
+	private final int MAX_BULLETS = 4;
+	private ArrayList<Bullet> bullets;
+	
 	private boolean left;
 	private boolean right;
 	private boolean up;
@@ -14,7 +20,10 @@ public class Player extends SpaceObject{
 	private float acceleration;
 	private float deceleration;
 	
-	public Player() {
+	public Player(ArrayList<Bullet> bullets) {
+		
+		this.bullets = bullets;
+		
 		x = SpaceShooter.WIDTH / 2;
 		y = SpaceShooter.HEIGHT / 2;
 		
@@ -55,6 +64,11 @@ public class Player extends SpaceObject{
 
 	public void setUp(boolean b) {
 		up = b;
+	}
+	
+	public void shoot() {
+		if(bullets.size() == MAX_BULLETS) return;
+		bullets.add(new Bullet(x, y, radians));
 	}
 	
 	public void update(float dt) {

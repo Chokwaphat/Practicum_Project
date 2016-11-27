@@ -17,6 +17,13 @@ public class SpaceObject {
 	protected float[] shapex;
 	protected float[] shapey;
 	
+	public float getx() {
+		return x;
+	}
+	public float gety() {
+		return y;
+	}
+	
 	protected void wrap() {
 		if(x < 0) x = SpaceShooter.WIDTH;
 		if(x > SpaceShooter.WIDTH) x = 0;

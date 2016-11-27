@@ -45,17 +45,14 @@ public class SpaceShooter implements ApplicationListener {
 	}
 	
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		 
 	}
 
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 }
