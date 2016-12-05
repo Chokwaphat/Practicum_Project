@@ -35,6 +35,17 @@ public class PlayState extends GameState {
 		
 	}
 	
+	private void splitAsteroids(Asteroid a) {
+		numAsteroidsLeft--;
+		if(a.getType() == Asteroid.LARGE) {
+			asteroids.add(new Asteroid(a.getx(), a.gety(), Asteroid.MEDIUM));
+			asteroids.add(new Asteroid(a.getx(), a.gety(), Asteroid.MEDIUM));
+		}
+		if(a.getType() == Asteroid.MEDIUM) {
+			asteroids.add(new Asteroid(a.getx(), a.gety(), Asteroid.SMALL));
+			asteroids.add(new Asteroid(a.getx(), a.gety(), Asteroid.SMALL));
+		}
+	}
 	private void spawnAsteroids() {
 		asteroids.clear();
 		
@@ -78,6 +89,37 @@ public class PlayState extends GameState {
 				asteroids.remove(i);
 				i--;
 				
+			}
+		}
+		
+		checkCollisions();
+	}
+	
+	private void checkCollisions() {
+		// player-asteroids
+		for(int i = 0; i < asteroids.size(); i++) {
+			Asteroid a = asteroids.get(i);
+			if(a.intersects(player)) {
+				player.hit();
+				asteroids.remove(i);
+				i--;
+				splitAsteroids(a);
+				break;
+			}
+		}
+		// bullet-asteroids
+		for(int i = 0; i < bullets.size(); i++) {
+			Bullet b = bullets.get(i);
+			for(int j = 0; j < asteroids.size(); j++) {
+				Asteroid a = asteroids.get(j);
+				if(a.contains(b.getx(), b.gety())) {
+					bullets.remove(i);
+					i--;
+					asteroids.remove(j);
+					j--;
+					splitAsteroids(a);
+					break;
+				}
 			}
 		}
 	}
