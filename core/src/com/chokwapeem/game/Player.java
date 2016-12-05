@@ -20,6 +20,8 @@ public class Player extends SpaceObject{
 	private float acceleration;
 	private float deceleration;
 	
+	private long score;
+	
 	public Player(ArrayList<Bullet> bullets) {
 		
 		this.bullets = bullets;
@@ -36,6 +38,8 @@ public class Player extends SpaceObject{
 		
 		radians = 3.1415f / 2;
 		rotationSpeed = 3;
+		
+		score = 0;
 		
 	}
 	
@@ -64,6 +68,14 @@ public class Player extends SpaceObject{
 
 	public void setUp(boolean b) {
 		up = b;
+	}
+	
+	public long getScore() {
+		return score;
+	}
+	
+	public void incrementScore(long l) {
+		score += l;
 	}
 	
 	public void shoot() {
@@ -106,7 +118,7 @@ public class Player extends SpaceObject{
 	}
 	
 	public void draw (ShapeRenderer sr) {
-		sr.setColor(1, 1, 1, 1);
+		sr.setColor(255, 255, 0, 1);
 		sr.begin(ShapeType.Line);
 		for(int i = 0, j = shapex.length - 1; i < shapex.length; j = i++) {
 			sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
@@ -114,5 +126,6 @@ public class Player extends SpaceObject{
 		
 		sr.end();
 	}
+
 }
 

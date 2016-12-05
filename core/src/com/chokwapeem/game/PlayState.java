@@ -2,12 +2,17 @@ package com.chokwapeem.game;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 public class PlayState extends GameState {
 	
+	private SpriteBatch sb;
 	private ShapeRenderer sr;
+	
+	private BitmapFont font;
 	
 	private Player player;
 	private ArrayList<Bullet> bullets;
@@ -22,7 +27,10 @@ public class PlayState extends GameState {
 	}
 	
 	public void init() {
+		sb = new SpriteBatch();
 		sr = new ShapeRenderer();
+		
+		font = new BitmapFont();
 		
 		bullets = new ArrayList<Bullet>();
 		
@@ -118,6 +126,7 @@ public class PlayState extends GameState {
 					asteroids.remove(j);
 					j--;
 					splitAsteroids(a);
+					player.incrementScore(a.getScore());
 					break;
 				}
 			}
@@ -133,6 +142,11 @@ public class PlayState extends GameState {
 		for(int i = 0; i < asteroids.size(); i++) {
 			asteroids.get(i).draw(sr);
 		}
+		
+		sb.setColor(1, 1, 0, 1);
+		sb.begin();
+		font.draw(sb, Long.toString(player.getScore()), 50, 490);
+		sb.end();
 	}
 	public void handleInput() {
 		player.setLeft(GameKeys.isDown(GameKeys.LEFT));
